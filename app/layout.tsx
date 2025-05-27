@@ -17,8 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "codiac - Fullstack Developer Portfolio",
   description:
-    "Portfolio of Musa Musa Kannike (codiac) - Fullstack Web & Mobile Developer specializing in React, React Native, Next.js, Node.js, and MongoDB.",
-    generator: 'v0.dev'
+    "Portfolio of Musa Musa Kannike (codiac) - Fullstack Web & Mobile Developer specializing in React, React Native, Next.js, Node.js, and MongoDB."
 }
 
 export default function RootLayout({
