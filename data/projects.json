@@ -1,0 +1,114 @@
+{
+  "frontend": [
+    {
+      "id": "1",
+      "title": "E-Commerce Dashboard",
+      "description": "A modern, responsive dashboard for managing e-commerce operations with real-time analytics, inventory management, and customer insights. Built with React and TypeScript for optimal performance.",
+      "githubRepo": "https://github.com/codiac/ecommerce-dashboard",
+      "siteUrl": "https://ecommerce-dash.vercel.app",
+      "toolsUsed": ["React", "TypeScript", "Tailwind CSS", "Chart.js", "Framer Motion"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "frontend",
+      "featured": true,
+      "completionDate": "2024-01-15",
+      "challenges": "Implementing real-time data visualization and responsive design across multiple screen sizes."
+    },
+    {
+      "id": "2",
+      "title": "Portfolio Website",
+      "description": "A sleek, animated portfolio website showcasing creative projects with smooth transitions and interactive elements. Features dark mode and responsive design.",
+      "githubRepo": "https://github.com/codiac/portfolio-v2",
+      "siteUrl": "https://codiac-portfolio.vercel.app",
+      "toolsUsed": ["Next.js", "Tailwind CSS", "Framer Motion", "Three.js"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "frontend",
+      "featured": false,
+      "completionDate": "2023-12-10",
+      "challenges": "Creating smooth 3D animations while maintaining performance across devices."
+    }
+  ],
+  "backend": [
+    {
+      "id": "3",
+      "title": "Task Management API",
+      "description": "RESTful API for task management with user authentication, real-time notifications, and advanced filtering. Includes comprehensive documentation and testing suite.",
+      "githubRepo": "https://github.com/codiac/task-api",
+      "siteUrl": "private",
+      "toolsUsed": ["Node.js", "Express", "MongoDB", "JWT", "Socket.io", "Jest"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "backend",
+      "featured": true,
+      "completionDate": "2024-02-20",
+      "challenges": "Implementing real-time notifications and optimizing database queries for large datasets."
+    },
+    {
+      "id": "4",
+      "title": "Authentication Microservice",
+      "description": "Scalable authentication service with OAuth integration, rate limiting, and security best practices. Supports multiple authentication providers.",
+      "githubRepo": "private",
+      "siteUrl": "private",
+      "toolsUsed": ["Node.js", "Express", "Redis", "PostgreSQL", "OAuth", "Docker"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "backend",
+      "featured": false,
+      "completionDate": "2023-11-30",
+      "challenges": "Ensuring security compliance and handling high-volume authentication requests."
+    }
+  ],
+  "mobile": [
+    {
+      "id": "5",
+      "title": "Fitness Tracker App",
+      "description": "Cross-platform mobile app for tracking workouts, nutrition, and progress with social features. Includes offline support and data synchronization.",
+      "githubRepo": "https://github.com/codiac/fitness-tracker",
+      "siteUrl": "https://apps.apple.com/fitness-tracker",
+      "toolsUsed": ["React Native", "Expo", "TypeScript", "AsyncStorage", "React Navigation"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "mobile",
+      "featured": true,
+      "completionDate": "2024-03-05",
+      "challenges": "Implementing offline-first architecture and smooth animations on both iOS and Android."
+    },
+    {
+      "id": "6",
+      "title": "Weather App",
+      "description": "Beautiful weather application with location-based forecasts, interactive maps, and customizable widgets. Features smooth animations and intuitive UI.",
+      "githubRepo": "https://github.com/codiac/weather-app",
+      "siteUrl": "https://play.google.com/weather-app",
+      "toolsUsed": ["React Native", "Expo", "Weather API", "Maps", "Animations"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "mobile",
+      "featured": false,
+      "completionDate": "2023-10-15",
+      "challenges": "Integrating multiple weather APIs and creating smooth map interactions."
+    }
+  ],
+  "fullstack": [
+    {
+      "id": "7",
+      "title": "Social Media Platform",
+      "description": "Full-featured social media platform with real-time messaging, content sharing, and advanced privacy controls. Includes admin dashboard and analytics.",
+      "githubRepo": "https://github.com/codiac/social-platform",
+      "siteUrl": "https://social-platform.vercel.app",
+      "toolsUsed": ["Next.js", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS", "JWT"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "fullstack",
+      "featured": true,
+      "completionDate": "2024-04-10",
+      "challenges": "Scaling real-time features and implementing complex privacy controls."
+    },
+    {
+      "id": "8",
+      "title": "E-Learning Platform",
+      "description": "Comprehensive e-learning platform with video streaming, progress tracking, and interactive quizzes. Includes payment integration and course management.",
+      "githubRepo": "private",
+      "siteUrl": "https://elearning-platform.com",
+      "toolsUsed": ["Next.js", "Express", "PostgreSQL", "Stripe", "Video.js", "Redis"],
+      "imageUrl": "/placeholder.svg?height=300&width=500",
+      "category": "fullstack",
+      "featured": true,
+      "completionDate": "2024-01-25",
+      "challenges": "Optimizing video streaming performance and implementing secure payment processing."
+    }
+  ]
+}

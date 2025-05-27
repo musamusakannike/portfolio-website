@@ -1,0 +1,82 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "Building Scalable React Applications with TypeScript",
+      "excerpt": "Learn how to structure large-scale React applications using TypeScript, custom hooks, and modern patterns for maintainable code.",
+      "content": "In this comprehensive guide, we'll explore the best practices for building scalable React applications using TypeScript. We'll cover component architecture, state management patterns, and performance optimization techniques that I've learned from building production applications.",
+      "author": "codiac",
+      "publishedDate": "2024-03-15",
+      "readTime": "8 min read",
+      "tags": ["React", "TypeScript", "Architecture", "Best Practices"],
+      "imageUrl": "/placeholder.svg?height=300&width=600",
+      "featured": true,
+      "category": "Frontend"
+    },
+    {
+      "id": "2",
+      "title": "Mastering React Native Performance Optimization",
+      "excerpt": "Discover advanced techniques to optimize React Native apps for smooth 60fps performance across iOS and Android platforms.",
+      "content": "Performance is crucial for mobile applications. In this article, I'll share the optimization techniques I've used to achieve smooth performance in React Native apps, including memory management, rendering optimizations, and native module integration.",
+      "author": "codiac",
+      "publishedDate": "2024-02-28",
+      "readTime": "12 min read",
+      "tags": ["React Native", "Performance", "Mobile", "Optimization"],
+      "imageUrl": "/placeholder.svg?height=300&width=600",
+      "featured": true,
+      "category": "Mobile"
+    },
+    {
+      "id": "3",
+      "title": "Building RESTful APIs with Node.js and Express",
+      "excerpt": "A complete guide to creating robust, secure, and scalable REST APIs using Node.js, Express, and MongoDB.",
+      "content": "Learn how to build production-ready REST APIs from scratch. We'll cover authentication, validation, error handling, testing, and deployment strategies that ensure your APIs are secure and performant.",
+      "author": "codiac",
+      "publishedDate": "2024-02-10",
+      "readTime": "15 min read",
+      "tags": ["Node.js", "Express", "API", "Backend", "MongoDB"],
+      "imageUrl": "/placeholder.svg?height=300&width=600",
+      "featured": false,
+      "category": "Backend"
+    },
+    {
+      "id": "4",
+      "title": "Next.js 15: What's New and How to Migrate",
+      "excerpt": "Explore the latest features in Next.js 15 and learn how to migrate your existing applications to take advantage of new capabilities.",
+      "content": "Next.js 15 brings exciting new features and improvements. In this post, I'll walk through the key changes, new APIs, and provide a step-by-step migration guide for existing applications.",
+      "author": "codiac",
+      "publishedDate": "2024-01-20",
+      "readTime": "10 min read",
+      "tags": ["Next.js", "React", "Migration", "Web Development"],
+      "imageUrl": "/placeholder.svg?height=300&width=600",
+      "featured": false,
+      "category": "Frontend"
+    },
+    {
+      "id": "5",
+      "title": "Database Design Patterns for Modern Applications",
+      "excerpt": "Explore database design patterns and best practices for building scalable applications with MongoDB and PostgreSQL.",
+      "content": "Good database design is the foundation of any successful application. I'll share the patterns and practices I use when designing databases for different types of applications, from simple CRUD apps to complex distributed systems.",
+      "author": "codiac",
+      "publishedDate": "2024-01-05",
+      "readTime": "14 min read",
+      "tags": ["Database", "MongoDB", "PostgreSQL", "Design Patterns"],
+      "imageUrl": "/placeholder.svg?height=300&width=600",
+      "featured": false,
+      "category": "Backend"
+    },
+    {
+      "id": "6",
+      "title": "Creating Smooth Animations in React with Framer Motion",
+      "excerpt": "Master the art of creating beautiful, performant animations in React applications using Framer Motion library.",
+      "content": "Animations can make or break user experience. In this tutorial, I'll show you how to create smooth, engaging animations using Framer Motion, from simple transitions to complex gesture-based interactions.",
+      "author": "codiac",
+      "publishedDate": "2023-12-15",
+      "readTime": "11 min read",
+      "tags": ["React", "Animations", "Framer Motion", "UX"],
+      "imageUrl": "/placeholder.svg?height=300&width=600",
+      "featured": false,
+      "category": "Frontend"
+    }
+  ]
+}
