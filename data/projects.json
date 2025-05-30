@@ -3,10 +3,27 @@
     {
       "id": "1",
       "title": "Your Advocate: Islamic Fundraiser",
-      "description": "",
-      "githubRepo": "https://github.com/codiac/ecommerce-dashboard",
+      "description": "Your Advocate is a web-based platform designed to facilitate Islamic charitable giving, aiming to provide essential support and resources to underserved communities both locally and globally. Established in 2024, the platform emphasizes transparency, compassion, and sustainable impact in its operations.",
+      "githubRepo": [
+        {
+          "title": "Frontend",
+          "url": "https://github.com/musamusakannike/fundraiser-frontend"
+        },
+        {
+          "title": "Backend",
+          "url": "https://github.com/musamusakannike/fundraiser-server"
+        }
+      ],
       "siteUrl": "https://your-advocate.vercel.app",
-      "toolsUsed": ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB", "Express", "JWT"],
+      "toolsUsed": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Node.js",
+        "MongoDB",
+        "Express",
+        "JWT"
+      ],
       "imageUrl": "/projects/your-advocate.png",
       "category": "fullstack",
       "featured": true,
@@ -34,7 +51,14 @@
       "description": "RESTful API for task management with user authentication, real-time notifications, and advanced filtering. Includes comprehensive documentation and testing suite.",
       "githubRepo": "https://github.com/codiac/task-api",
       "siteUrl": "private",
-      "toolsUsed": ["Node.js", "Express", "MongoDB", "JWT", "Socket.io", "Jest"],
+      "toolsUsed": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "JWT",
+        "Socket.io",
+        "Jest"
+      ],
       "imageUrl": "/placeholder.svg?height=300&width=500",
       "category": "backend",
       "featured": true,
@@ -47,7 +71,14 @@
       "description": "Scalable authentication service with OAuth integration, rate limiting, and security best practices. Supports multiple authentication providers.",
       "githubRepo": "private",
       "siteUrl": "private",
-      "toolsUsed": ["Node.js", "Express", "Redis", "PostgreSQL", "OAuth", "Docker"],
+      "toolsUsed": [
+        "Node.js",
+        "Express",
+        "Redis",
+        "PostgreSQL",
+        "OAuth",
+        "Docker"
+      ],
       "imageUrl": "/placeholder.svg?height=300&width=500",
       "category": "backend",
       "featured": false,
@@ -58,13 +89,22 @@
   "mobile": [
     {
       "id": "5",
-      "title": "Fitness Tracker App",
-      "description": "Cross-platform mobile app for tracking workouts, nutrition, and progress with social features. Includes offline support and data synchronization.",
-      "githubRepo": "https://github.com/codiac/fitness-tracker",
-      "siteUrl": "https://apps.apple.com/fitness-tracker",
-      "toolsUsed": ["React Native", "Expo", "TypeScript", "AsyncStorage", "React Navigation"],
-      "imageUrl": "/placeholder.svg?height=300&width=500",
-      "category": "mobile",
+      "title": "Dishful",
+      "description": "",
+      "githubRepo": "https://github.com/musamusakannike/dishful",
+      "siteUrl": "https://dishful.vercel.app/",
+      "toolsUsed": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Node.js",
+        "MongoDB",
+        "Express",
+        "JWT",
+        "Gemini API"
+      ],
+      "imageUrl": "/projects/dishful.png",
+      "category": "fullstack",
       "featured": true,
       "completionDate": "2024-03-05",
       "challenges": "Implementing offline-first architecture and smooth animations on both iOS and Android."
@@ -75,7 +115,13 @@
       "description": "Beautiful weather application with location-based forecasts, interactive maps, and customizable widgets. Features smooth animations and intuitive UI.",
       "githubRepo": "https://github.com/codiac/weather-app",
       "siteUrl": "https://play.google.com/weather-app",
-      "toolsUsed": ["React Native", "Expo", "Weather API", "Maps", "Animations"],
+      "toolsUsed": [
+        "React Native",
+        "Expo",
+        "Weather API",
+        "Maps",
+        "Animations"
+      ],
       "imageUrl": "/placeholder.svg?height=300&width=500",
       "category": "mobile",
       "featured": false,
@@ -90,7 +136,14 @@
       "description": "Full-featured social media platform with real-time messaging, content sharing, and advanced privacy controls. Includes admin dashboard and analytics.",
       "githubRepo": "https://github.com/codiac/social-platform",
       "siteUrl": "https://social-platform.vercel.app",
-      "toolsUsed": ["Next.js", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS", "JWT"],
+      "toolsUsed": [
+        "Next.js",
+        "Node.js",
+        "MongoDB",
+        "Socket.io",
+        "Tailwind CSS",
+        "JWT"
+      ],
       "imageUrl": "/placeholder.svg?height=300&width=500",
       "category": "fullstack",
       "featured": true,
@@ -103,7 +156,14 @@
       "description": "Comprehensive e-learning platform with video streaming, progress tracking, and interactive quizzes. Includes payment integration and course management.",
       "githubRepo": "private",
       "siteUrl": "https://elearning-platform.com",
-      "toolsUsed": ["Next.js", "Express", "PostgreSQL", "Stripe", "Video.js", "Redis"],
+      "toolsUsed": [
+        "Next.js",
+        "Express",
+        "PostgreSQL",
+        "Stripe",
+        "Video.js",
+        "Redis"
+      ],
       "imageUrl": "/placeholder.svg?height=300&width=500",
       "category": "fullstack",
       "featured": true,

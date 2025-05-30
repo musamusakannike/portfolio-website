@@ -1,65 +1,98 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect, useRef } from "react"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
-import { Github, ExternalLink, Code, Smartphone, Server, Globe, ChevronDown, X, Calendar, Wrench } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import projectsData from "@/data/projects.json"
-import blogsData from "@/data/blogs.json"
-import { Mail, Send, User, MessageSquare, Star, Quote, Code2, Database, SmartphoneIcon, Globe2 } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
+import {
+  Github,
+  ExternalLink,
+  Code,
+  Smartphone,
+  Server,
+  Globe,
+  ChevronDown,
+  X,
+  Calendar,
+  Wrench,
+  ChevronDownIcon,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import projectsData from "@/data/projects.json";
+import blogsData from "@/data/blogs.json";
+import {
+  Mail,
+  Send,
+  User,
+  MessageSquare,
+  Star,
+  Quote,
+  Code2,
+  Database,
+  SmartphoneIcon,
+  Globe2,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+type GithubRepoTitled = {
+  title: string;
+  url: string;
+};
 
 type Project = {
-  id: string
-  title: string
-  description: string
-  githubRepo: string
-  siteUrl: string
-  toolsUsed: string[]
-  imageUrl: string
-  category: string
-  featured: boolean
-  completionDate: string
-  challenges: string
-}
+  id: string;
+  title: string;
+  description: string;
+  githubRepo: "private" | string | GithubRepoTitled[];
+  siteUrl: string;
+  toolsUsed: string[];
+  imageUrl: string;
+  category: string;
+  featured: boolean;
+  completionDate: string;
+  challenges: string;
+};
 
 type BlogPost = {
-  id: string
-  title: string
-  excerpt: string
-  content: string
-  author: string
-  publishedDate: string
-  readTime: string
-  tags: string[]
-  imageUrl: string
-  featured: boolean
-  category: string
-}
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  publishedDate: string;
+  readTime: string;
+  tags: string[];
+  imageUrl: string;
+  featured: boolean;
+  category: string;
+};
 
 type Testimonial = {
-  id: string
-  name: string
-  role: string
-  company: string
-  content: string
-  rating: number
-  avatar: string
-}
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+  avatar: string;
+};
 
 type Skill = {
-  name: string
-  level: number
-  category: string
-  icon: React.ComponentType<{ className?: string }>
-}
+  name: string;
+  level: number;
+  category: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
 
-type ProjectCategory = "all" | "frontend" | "backend" | "mobile" | "fullstack"
+type ProjectCategory = "all" | "frontend" | "backend" | "mobile" | "fullstack";
 
 const categories = [
   { id: "all", label: "All Projects", icon: Globe },
@@ -67,7 +100,7 @@ const categories = [
   { id: "backend", label: "Backend", icon: Server },
   { id: "mobile", label: "Mobile", icon: Smartphone },
   { id: "fullstack", label: "Full Stack", icon: Globe },
-]
+];
 
 const testimonials: Testimonial[] = [
   {
@@ -110,7 +143,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     avatar: "/placeholder.svg?height=60&width=60",
   },
-]
+];
 
 const skills: Skill[] = [
   { name: "React", level: 95, category: "Frontend", icon: Code2 },
@@ -125,9 +158,15 @@ const skills: Skill[] = [
   { name: "HTML/CSS", level: 96, category: "Frontend", icon: Code2 },
   { name: "Git", level: 89, category: "Tools", icon: Code2 },
   { name: "REST APIs", level: 91, category: "Backend", icon: Server },
-]
+];
 
-const FloatingIcon = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
+const FloatingIcon = ({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) => {
   return (
     <motion.div
       className="absolute text-blue-300/20 text-2xl"
@@ -151,55 +190,110 @@ const FloatingIcon = ({ children, delay = 0 }: { children: React.ReactNode; dela
     >
       {children}
     </motion.div>
-  )
-}
+  );
+};
 
 export default function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all")
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const heroRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll()
-  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null)
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll();
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null);
+  const [modalRepoDropdownOpen, setModalRepoDropdownOpen] = useState(false);
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const modalDropdownRef = useRef(null);
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
-    setIsLoaded(true)
-  }, [])
+    setIsLoaded(true);
+  }, []);
+
+  // Effect to handle clicks outside the modal dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalDropdownRef.current &&
+        !(modalDropdownRef.current as Node).contains(event.target as Node)
+      ) {
+        setModalRepoDropdownOpen(false);
+      }
+    };
+
+    if (modalRepoDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [modalRepoDropdownOpen]);
 
   const getAllProjects = (): Project[] => {
-    return [...projectsData.frontend, ...projectsData.backend, ...projectsData.mobile, ...projectsData.fullstack]
-  }
+    return [
+      ...projectsData.frontend,
+      ...projectsData.backend,
+      ...projectsData.mobile,
+      ...projectsData.fullstack,
+    ];
+  };
 
   const getFilteredProjects = (): Project[] => {
     if (activeCategory === "all") {
-      return getAllProjects()
+      return getAllProjects();
     }
-    return projectsData[activeCategory] || []
-  }
+    return projectsData[activeCategory] || [];
+  };
 
   const scrollToProjects = () => {
-    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-  }
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // Reset form
-    setContactForm({ name: "", email: "", message: "" })
-    setIsSubmitting(false)
+    setContactForm({ name: "", email: "", message: "" });
+    setIsSubmitting(false);
 
     // You can integrate with your preferred email service here
-    alert("Thank you for your message! I'll get back to you soon.")
-  }
+    alert("Thank you for your message! I'll get back to you soon.");
+  };
+
+  const handleModalGitHubClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    if (!selectedProject) return;
+    
+    if (
+      typeof selectedProject.githubRepo === "string" &&
+      selectedProject.githubRepo !== "private"
+    ) {
+      window.open(selectedProject.githubRepo, "_blank");
+    } else if (Array.isArray(selectedProject.githubRepo)) {
+      if (selectedProject.githubRepo.length === 1) {
+        window.open(selectedProject.githubRepo[0].url, "_blank");
+        setModalRepoDropdownOpen(false);
+      } else if (selectedProject.githubRepo.length > 1) {
+        setModalRepoDropdownOpen((prev) => !prev);
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
@@ -237,8 +331,12 @@ export default function Portfolio() {
             <h1 className="text-6xl md:text-8xl font-bold font-['Poppins'] mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               codiac
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 font-['Poppins'] mb-2">Musa Musa Kannike</p>
-            <p className="text-lg md:text-xl text-gray-400 font-mono">Fullstack Web & Mobile Developer</p>
+            <p className="text-xl md:text-2xl text-gray-300 font-['Poppins'] mb-2">
+              Musa Musa Kannike
+            </p>
+            <p className="text-lg md:text-xl text-gray-400 font-mono">
+              Fullstack Web & Mobile Developer
+            </p>
           </motion.div>
 
           <motion.div
@@ -248,8 +346,9 @@ export default function Portfolio() {
             className="mb-12"
           >
             <p className="text-lg md:text-xl text-gray-300 font-['Poppins'] leading-relaxed max-w-3xl mx-auto">
-              Crafting digital experiences across web and mobile platforms with modern technologies. Specializing in
-              React, React Native, Next.js, Node.js, and MongoDB.
+              Crafting digital experiences across web and mobile platforms with
+              modern technologies. Specializing in React, React Native, Next.js,
+              Node.js, and MongoDB.
             </p>
           </motion.div>
 
@@ -259,23 +358,31 @@ export default function Portfolio() {
             transition={{ duration: 1, delay: 1 }}
             className="flex flex-wrap justify-center gap-4 mb-12"
           >
-            {["HTML", "CSS", "Tailwind CSS", "React", "React Native", "Next.js", "Node.js", "Express", "MongoDB"].map(
-              (tech, index) => (
-                <motion.div
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+            {[
+              "HTML",
+              "CSS",
+              "Tailwind CSS",
+              "React",
+              "React Native",
+              "Next.js",
+              "Node.js",
+              "Express",
+              "MongoDB",
+            ].map((tech, index) => (
+              <motion.div
+                key={tech}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+              >
+                <Badge
+                  variant="outline"
+                  className="px-4 py-2 text-sm font-mono border-purple-400/50 text-purple-300 hover:bg-purple-400/10 transition-colors"
                 >
-                  <Badge
-                    variant="outline"
-                    className="px-4 py-2 text-sm font-mono border-purple-400/50 text-purple-300 hover:bg-purple-400/10 transition-colors"
-                  >
-                    {tech}
-                  </Badge>
-                </motion.div>
-              ),
-            )}
+                  {tech}
+                </Badge>
+              </motion.div>
+            ))}
           </motion.div>
 
           <motion.div
@@ -322,12 +429,16 @@ export default function Portfolio() {
             className="flex flex-wrap justify-center gap-4 mb-12"
           >
             {categories.map((category) => {
-              const Icon = category.icon
+              const Icon = category.icon;
               return (
                 <Button
                   key={category.id}
-                  onClick={() => setActiveCategory(category.id as ProjectCategory)}
-                  variant={activeCategory === category.id ? "default" : "outline"}
+                  onClick={() =>
+                    setActiveCategory(category.id as ProjectCategory)
+                  }
+                  variant={
+                    activeCategory === category.id ? "default" : "outline"
+                  }
                   className={`px-6 py-3 font-['Poppins'] transition-all duration-300 ${
                     activeCategory === category.id
                       ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white"
@@ -337,94 +448,198 @@ export default function Portfolio() {
                   <Icon className="mr-2 h-4 w-4" />
                   {category.label}
                 </Button>
-              )
+              );
             })}
           </motion.div>
 
           {/* Projects Grid */}
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
             <AnimatePresence>
-              {getFilteredProjects().map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -50 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -10 }}
-                  className="group cursor-pointer"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  <Card className="bg-slate-800/50 border-purple-400/20 backdrop-blur-sm hover:border-purple-400/50 transition-all duration-300 overflow-hidden">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={project.imageUrl || "/placeholder.svg"}
-                        alt={project.title}
-                        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      {project.featured && (
-                        <Badge className="absolute top-4 right-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold">
-                          Featured
-                        </Badge>
-                      )}
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-bold font-['Poppins'] mb-3 text-white group-hover:text-purple-300 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-300 font-['Poppins'] mb-4 line-clamp-3">{project.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.toolsUsed.slice(0, 3).map((tool) => (
-                          <Badge
-                            key={tool}
-                            variant="outline"
-                            className="text-xs font-mono border-blue-400/50 text-blue-300"
-                          >
-                            {tool}
-                          </Badge>
-                        ))}
-                        {project.toolsUsed.length > 3 && (
-                          <Badge variant="outline" className="text-xs font-mono border-gray-400/50 text-gray-400">
-                            +{project.toolsUsed.length - 3} more
+              {getFilteredProjects().map((project, index) => {
+                const [repoDropdownOpen, setRepoDropdownOpen] = useState(false);
+                const dropdownRef = useRef(null);
+
+                // Effect to handle clicks outside the dropdown to close it
+                useEffect(() => {
+                  const handleClickOutside = (event: MouseEvent) => {
+                    if (
+                      dropdownRef.current &&
+                      !(dropdownRef.current as Node).contains(event.target as Node)
+                    ) {
+                      setRepoDropdownOpen(false);
+                    }
+                  };
+
+                  if (repoDropdownOpen) {
+                    document.addEventListener("mousedown", handleClickOutside);
+                  } else {
+                    document.removeEventListener(
+                      "mousedown",
+                      handleClickOutside
+                    );
+                  }
+
+                  return () => {
+                    document.removeEventListener(
+                      "mousedown",
+                      handleClickOutside
+                    );
+                  };
+                }, [repoDropdownOpen]);
+
+                const handleGitHubClick = (
+                  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                ) => {
+                  e.stopPropagation();
+                  if (
+                    typeof project.githubRepo === "string" &&
+                    project.githubRepo !== "private"
+                  ) {
+                    window.open(project.githubRepo, "_blank");
+                  } else if (Array.isArray(project.githubRepo)) {
+                    if (project.githubRepo.length === 1) {
+                      window.open(project.githubRepo[0].url, "_blank");
+                      setRepoDropdownOpen(false);
+                    } else if (project.githubRepo.length > 1) {
+                      setRepoDropdownOpen((prev) => !prev);
+                    }
+                  }
+                };
+
+                const isGitHubDropdown =
+                  Array.isArray(project.githubRepo) &&
+                  project.githubRepo.length > 1;
+
+                return (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ y: -10 }}
+                    className="group cursor-pointer"
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    <Card className="bg-slate-800/50 border-purple-400/20 backdrop-blur-sm hover:border-purple-400/50 transition-all duration-300 overflow-x-hidden overflow-y-auto">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={project.imageUrl || "/placeholder.svg"}
+                          alt={project.title}
+                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {project.featured && (
+                          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold">
+                            Featured
                           </Badge>
                         )}
                       </div>
-                      <div className="flex gap-3">
-                        {project.githubRepo !== "private" && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-purple-400/50 text-purple-300 hover:bg-purple-400/10"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              window.open(project.githubRepo, "_blank")
-                            }}
-                          >
-                            <Github className="h-4 w-4 mr-1" />
-                            Code
-                          </Button>
-                        )}
-                        {project.siteUrl !== "private" && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-blue-400/50 text-blue-300 hover:bg-blue-400/10"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              window.open(project.siteUrl, "_blank")
-                            }}
-                          >
-                            <ExternalLink className="h-4 w-4 mr-1" />
-                            Live
-                          </Button>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-bold font-['Poppins'] mb-3 text-white group-hover:text-purple-300 transition-colors">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-300 font-['Poppins'] mb-4 line-clamp-3">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.toolsUsed.slice(0, 3).map((tool) => (
+                            <Badge
+                              key={tool}
+                              variant="outline"
+                              className="text-xs font-mono border-blue-400/50 text-blue-300"
+                            >
+                              {tool}
+                            </Badge>
+                          ))}
+                          {project.toolsUsed.length > 3 && (
+                            <Badge
+                              variant="outline"
+                              className="text-xs font-mono border-gray-400/50 text-gray-400"
+                            >
+                              +{project.toolsUsed.length - 3} more
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex gap-3">
+                          {project.githubRepo !== "private" && (
+                            <div className="relative" ref={dropdownRef}>
+                              {" "}
+                              {/* Wrapper for button and dropdown */}
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-purple-400/50 text-purple-300 hover:bg-purple-400/10 flex items-center"
+                                onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleGitHubClick(e)}
+                              >
+                                <Github className="h-4 w-4 mr-1" />
+                                Code
+                                {isGitHubDropdown && (
+                                  <ChevronDownIcon
+                                    className={`h-5 w-5 ml-1 transition-transform duration-200 ${
+                                      repoDropdownOpen
+                                        ? "transform rotate-180"
+                                        : ""
+                                    }`}
+                                  />
+                                )}
+                              </Button>
+                              {repoDropdownOpen && isGitHubDropdown && (
+                                <motion.div
+                                  initial={{ opacity: 0, y: -5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -5 }}
+                                  transition={{ duration: 0.15 }}
+                                  className="absolute left-0 mt-2 w-56 origin-top-left bg-slate-700 border border-slate-600 rounded-md shadow-xl z-20 py-1"
+                                  onClick={(e) => e.stopPropagation()} // Prevent clicks in dropdown padding from closing or selecting project
+                                >
+                                  {(
+                                    project.githubRepo as GithubRepoTitled[]
+                                  ).map((repo) => (
+                                    <a
+                                      key={repo.url} // Use repo.url or a unique identifier
+                                      href={repo.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="block px-4 py-2 text-sm text-gray-200 hover:bg-slate-600 hover:text-purple-300 w-full text-left"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setRepoDropdownOpen(false); // Close dropdown on item click
+                                      }}
+                                    >
+                                      {repo.title}
+                                    </a>
+                                  ))}
+                                </motion.div>
+                              )}
+                            </div>
+                          )}
+                          {project.siteUrl !== "private" && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="border-blue-400/50 text-blue-300 hover:bg-blue-400/10"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (typeof project.siteUrl === "string") {
+                                  window.open(project.siteUrl, "_blank");
+                                }
+                              }}
+                            >
+                              <ExternalLink className="h-4 w-4 mr-1" />
+                              Live
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
           </motion.div>
         </div>
@@ -450,7 +665,7 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skills.map((skill, index) => {
-              const Icon = skill.icon
+              const Icon = skill.icon;
               return (
                 <motion.div
                   key={skill.name}
@@ -462,7 +677,9 @@ export default function Portfolio() {
                 >
                   <div className="flex items-center mb-4">
                     <Icon className="h-6 w-6 text-purple-400 mr-3" />
-                    <h3 className="text-lg font-semibold font-['Poppins'] text-white">{skill.name}</h3>
+                    <h3 className="text-lg font-semibold font-['Poppins'] text-white">
+                      {skill.name}
+                    </h3>
                   </div>
                   <div className="mb-2">
                     <div className="flex justify-between text-sm text-gray-300 mb-1">
@@ -480,7 +697,7 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </div>
         </div>
@@ -541,7 +758,9 @@ export default function Portfolio() {
                     <h3 className="text-xl font-bold font-['Poppins'] mb-3 text-white group-hover:text-orange-300 transition-colors line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-gray-300 font-['Poppins'] mb-4 line-clamp-3 flex-grow">{post.excerpt}</p>
+                    <p className="text-gray-300 font-['Poppins'] mb-4 line-clamp-3 flex-grow">
+                      {post.excerpt}
+                    </p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {post.tags.slice(0, 3).map((tag) => (
                         <Badge
@@ -554,7 +773,9 @@ export default function Portfolio() {
                       ))}
                     </div>
                     <div className="flex justify-between items-center text-sm text-gray-400 font-mono">
-                      <span>{new Date(post.publishedDate).toLocaleDateString()}</span>
+                      <span>
+                        {new Date(post.publishedDate).toLocaleDateString()}
+                      </span>
                       <span>{post.readTime}</span>
                     </div>
                   </CardContent>
@@ -600,7 +821,10 @@ export default function Portfolio() {
                       <Quote className="h-8 w-8 text-yellow-400 mr-3" />
                       <div className="flex">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                          <Star
+                            key={i}
+                            className="h-4 w-4 text-yellow-400 fill-current"
+                          />
                         ))}
                       </div>
                     </div>
@@ -614,7 +838,9 @@ export default function Portfolio() {
                         className="w-12 h-12 rounded-full mr-4 border-2 border-yellow-400/30"
                       />
                       <div>
-                        <h4 className="text-white font-semibold font-['Poppins']">{testimonial.name}</h4>
+                        <h4 className="text-white font-semibold font-['Poppins']">
+                          {testimonial.name}
+                        </h4>
                         <p className="text-gray-400 font-mono text-sm">
                           {testimonial.role} at {testimonial.company}
                         </p>
@@ -642,7 +868,8 @@ export default function Portfolio() {
               Get In Touch
             </h2>
             <p className="text-xl text-gray-300 font-['Poppins'] max-w-2xl mx-auto">
-              Ready to start your next project? Let's discuss how we can work together to bring your ideas to life.
+              Ready to start your next project? Let's discuss how we can work
+              together to bring your ideas to life.
             </p>
           </motion.div>
 
@@ -657,14 +884,21 @@ export default function Portfolio() {
                 <form onSubmit={handleContactSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2 font-['Poppins']">Your Name</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2 font-['Poppins']">
+                        Your Name
+                      </label>
                       <div className="relative">
                         <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                         <Input
                           type="text"
                           required
                           value={contactForm.name}
-                          onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                          onChange={(e) =>
+                            setContactForm({
+                              ...contactForm,
+                              name: e.target.value,
+                            })
+                          }
                           className="pl-10 bg-slate-700/50 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-400 font-['Poppins']"
                           placeholder="Enter your name"
                         />
@@ -680,7 +914,12 @@ export default function Portfolio() {
                           type="email"
                           required
                           value={contactForm.email}
-                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                          onChange={(e) =>
+                            setContactForm({
+                              ...contactForm,
+                              email: e.target.value,
+                            })
+                          }
                           className="pl-10 bg-slate-700/50 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-400 font-['Poppins']"
                           placeholder="Enter your email"
                         />
@@ -688,14 +927,21 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 font-['Poppins']">Message</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2 font-['Poppins']">
+                      Message
+                    </label>
                     <div className="relative">
                       <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                       <Textarea
                         required
                         rows={6}
                         value={contactForm.message}
-                        onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                        onChange={(e) =>
+                          setContactForm({
+                            ...contactForm,
+                            message: e.target.value,
+                          })
+                        }
                         className="pl-10 bg-slate-700/50 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-400 font-['Poppins'] resize-none"
                         placeholder="Tell me about your project..."
                       />
@@ -722,7 +968,9 @@ export default function Portfolio() {
                   </div>
                 </form>
                 <div className="mt-8 pt-8 border-t border-gray-600 text-center">
-                  <p className="text-gray-300 font-['Poppins'] mb-2">Or reach me directly at:</p>
+                  <p className="text-gray-300 font-['Poppins'] mb-2">
+                    Or reach me directly at:
+                  </p>
                   <a
                     href="mailto:musamusakannike@gmail.com"
                     className="text-cyan-400 hover:text-cyan-300 font-mono text-lg transition-colors"
@@ -776,7 +1024,9 @@ export default function Portfolio() {
               </div>
 
               <div className="p-8">
-                <h2 className="text-3xl font-bold font-['Poppins'] mb-4 text-white">{selectedProject.title}</h2>
+                <h2 className="text-3xl font-bold font-['Poppins'] mb-4 text-white">
+                  {selectedProject.title}
+                </h2>
 
                 <p className="text-gray-300 font-['Poppins'] text-lg leading-relaxed mb-6">
                   {selectedProject.description}
@@ -790,7 +1040,11 @@ export default function Portfolio() {
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.toolsUsed.map((tool) => (
-                        <Badge key={tool} variant="outline" className="font-mono border-blue-400/50 text-blue-300">
+                        <Badge
+                          key={tool}
+                          variant="outline"
+                          className="font-mono border-blue-400/50 text-blue-300"
+                        >
                           {tool}
                         </Badge>
                       ))}
@@ -803,9 +1057,14 @@ export default function Portfolio() {
                       Project Details
                     </h3>
                     <p className="text-gray-300 font-mono text-sm mb-2">
-                      Completed: {new Date(selectedProject.completionDate).toLocaleDateString()}
+                      Completed:{" "}
+                      {new Date(
+                        selectedProject.completionDate
+                      ).toLocaleDateString()}
                     </p>
-                    <p className="text-gray-300 font-mono text-sm">Category: {selectedProject.category}</p>
+                    <p className="text-gray-300 font-mono text-sm">
+                      Category: {selectedProject.category}
+                    </p>
                   </div>
                 </div>
 
@@ -813,24 +1072,68 @@ export default function Portfolio() {
                   <h3 className="text-lg font-semibold font-['Poppins'] mb-3 text-purple-300">
                     Challenges & Solutions
                   </h3>
-                  <p className="text-gray-300 font-['Poppins'] leading-relaxed">{selectedProject.challenges}</p>
+                  <p className="text-gray-300 font-['Poppins'] leading-relaxed">
+                    {selectedProject.challenges}
+                  </p>
                 </div>
 
                 <div className="flex gap-4">
                   {selectedProject.githubRepo !== "private" && (
-                    <Button
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-['Poppins']"
-                      onClick={() => window.open(selectedProject.githubRepo, "_blank")}
-                    >
-                      <Github className="mr-2 h-5 w-5" />
-                      View Code
-                    </Button>
+                    <div className="relative" ref={modalDropdownRef}>
+                      <Button
+                        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-['Poppins'] flex items-center"
+                        onClick={handleModalGitHubClick}
+                      >
+                        <Github className="mr-2 h-5 w-5" />
+                        View Code
+                        {Array.isArray(selectedProject.githubRepo) &&
+                          selectedProject.githubRepo.length > 1 && (
+                            <ChevronDownIcon
+                              className={`h-5 w-5 ml-1 transition-transform duration-200 ${
+                                modalRepoDropdownOpen
+                                  ? "transform rotate-180"
+                                  : ""
+                              }`}
+                            />
+                          )}
+                      </Button>
+                      {modalRepoDropdownOpen &&
+                        Array.isArray(selectedProject.githubRepo) &&
+                        selectedProject.githubRepo.length > 1 && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -5 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-0 mt-2 w-56 origin-top-left bg-slate-700 border border-slate-600 rounded-md shadow-xl z-20 py-1"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {(selectedProject.githubRepo as GithubRepoTitled[]).map((repo) => (
+                              <a
+                                key={repo.url}
+                                href={repo.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block px-4 py-2 text-sm text-gray-200 hover:bg-slate-600 hover:text-purple-300 w-full text-left"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setModalRepoDropdownOpen(false);
+                                }}
+                              >
+                                {repo.title}
+                              </a>
+                            ))}
+                          </motion.div>
+                        )}
+                    </div>
                   )}
                   {selectedProject.siteUrl !== "private" && (
                     <Button
                       variant="outline"
                       className="border-blue-400/50 text-blue-300 hover:bg-blue-400/10 font-['Poppins']"
-                      onClick={() => window.open(selectedProject.siteUrl, "_blank")}
+                      onClick={() =>
+                        window.open(selectedProject.siteUrl, "_blank")
+                      }
                     >
                       <ExternalLink className="mr-2 h-5 w-5" />
                       Live Demo
@@ -884,20 +1187,27 @@ export default function Portfolio() {
 
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <Badge variant="outline" className="border-orange-400/50 text-orange-300 font-mono">
+                  <Badge
+                    variant="outline"
+                    className="border-orange-400/50 text-orange-300 font-mono"
+                  >
                     {selectedBlog.category}
                   </Badge>
                   <span className="text-gray-400 font-mono text-sm">
                     {new Date(selectedBlog.publishedDate).toLocaleDateString()}
                   </span>
-                  <span className="text-gray-400 font-mono text-sm">{selectedBlog.readTime}</span>
+                  <span className="text-gray-400 font-mono text-sm">
+                    {selectedBlog.readTime}
+                  </span>
                 </div>
 
                 <h1 className="text-3xl md:text-4xl font-bold font-['Poppins'] mb-6 text-white">
                   {selectedBlog.title}
                 </h1>
 
-                <p className="text-gray-300 font-['Poppins'] text-lg leading-relaxed mb-6">{selectedBlog.excerpt}</p>
+                <p className="text-gray-300 font-['Poppins'] text-lg leading-relaxed mb-6">
+                  {selectedBlog.excerpt}
+                </p>
 
                 <div className="prose prose-invert max-w-none">
                   <p className="text-gray-300 font-['Poppins'] leading-relaxed whitespace-pre-line">
@@ -906,10 +1216,16 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-600">
-                  <h3 className="text-lg font-semibold font-['Poppins'] mb-4 text-orange-300">Tags</h3>
+                  <h3 className="text-lg font-semibold font-['Poppins'] mb-4 text-orange-300">
+                    Tags
+                  </h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedBlog.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="border-blue-400/50 text-blue-300 font-mono">
+                      <Badge
+                        key={tag}
+                        variant="outline"
+                        className="border-blue-400/50 text-blue-300 font-mono"
+                      >
                         {tag}
                       </Badge>
                     ))}
@@ -934,20 +1250,25 @@ export default function Portfolio() {
               Let's Build Something Amazing Together
             </h3>
             <p className="text-gray-300 font-['Poppins'] mb-6">
-              Ready to bring your ideas to life? Let's connect and create something extraordinary.
+              Ready to bring your ideas to life? Let's connect and create
+              something extraordinary.
             </p>
             <div className="flex justify-center gap-4">
               <Button
                 variant="outline"
                 className="border-purple-400/50 text-purple-300 hover:bg-purple-400/10 font-['Poppins']"
-                onClick={() => window.open("mailto:codiac@example.com", "_blank")}
+                onClick={() =>
+                  window.open("mailto:codiac@example.com", "_blank")
+                }
               >
                 Get In Touch
               </Button>
               <Button
                 variant="outline"
                 className="border-blue-400/50 text-blue-300 hover:bg-blue-400/10 font-['Poppins']"
-                onClick={() => window.open("https://github.com/codiac", "_blank")}
+                onClick={() =>
+                  window.open("https://github.com/codiac", "_blank")
+                }
               >
                 <Github className="mr-2 h-4 w-4" />
                 GitHub
@@ -957,5 +1278,5 @@ export default function Portfolio() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
