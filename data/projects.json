@@ -2,15 +2,15 @@
   "frontend": [
     {
       "id": "1",
-      "title": "E-Commerce Dashboard",
-      "description": "A modern, responsive dashboard for managing e-commerce operations with real-time analytics, inventory management, and customer insights. Built with React and TypeScript for optimal performance.",
+      "title": "Your Advocate: Islamic Fundraiser",
+      "description": "",
       "githubRepo": "https://github.com/codiac/ecommerce-dashboard",
-      "siteUrl": "https://ecommerce-dash.vercel.app",
-      "toolsUsed": ["React", "TypeScript", "Tailwind CSS", "Chart.js", "Framer Motion"],
-      "imageUrl": "/placeholder.svg?height=300&width=500",
-      "category": "frontend",
+      "siteUrl": "https://your-advocate.vercel.app",
+      "toolsUsed": ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB", "Express", "JWT"],
+      "imageUrl": "/projects/your-advocate.png",
+      "category": "fullstack",
       "featured": true,
-      "completionDate": "2024-01-15",
+      "completionDate": "2025-05-30",
       "challenges": "Implementing real-time data visualization and responsive design across multiple screen sizes."
     },
     {
