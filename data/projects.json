@@ -152,23 +152,24 @@
     },
     {
       "id": "8",
-      "title": "E-Learning Platform",
-      "description": "Comprehensive e-learning platform with video streaming, progress tracking, and interactive quizzes. Includes payment integration and course management.",
+      "title": "Smartdrill",
+      "description": "A comprehensive backend API and admin dashboard for Smartdrill, a Nigerian edTech platform focused on past questions and learning materials for university students.Includes payment integration and course management.",
       "githubRepo": "private",
       "siteUrl": "https://elearning-platform.com",
       "toolsUsed": [
-        "Next.js",
+        "Node.js",
         "Express",
-        "PostgreSQL",
-        "Stripe",
-        "Video.js",
-        "Redis"
+        "MongoDB",
+        "Flutterwave",
+        "React",
+        "TypeScript",
+        "Tailwind"
       ],
       "imageUrl": "/placeholder.svg?height=300&width=500",
       "category": "fullstack",
       "featured": true,
-      "completionDate": "2024-01-25",
-      "challenges": "Optimizing video streaming performance and implementing secure payment processing."
+      "completionDate": "2025-06-12",
+      "challenges": "Implementing secure payment processing."
     }
   ]
 }
